@@ -2,11 +2,17 @@ require 'sinatra'
 require 'rack/handler/puma'
 require 'csv'
 require 'pg'
-require './helper/database_connection'
-require './helper/import_csv'
+require './helper/list_csv_data'
+require './helper/data_csv'
 
 get '/tests' do
-  ImportCSV.set_database
+  ListCSVData.set_database
+end
+
+post '/import' do
+  SetDatabase.drop_table
+  SetDatabase.create_table
+  DataCSV.insert_data(request.body)
 end
 
 Rack::Handler::Puma.run(
