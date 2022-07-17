@@ -2,17 +2,24 @@ require 'sinatra'
 require 'rack/handler/puma'
 require 'csv'
 require 'pg'
-require './helper/list_csv_data'
-require './helper/data_csv'
+require_relative'./helper/list_csv_data'
+require_relative  './helper/data_csv'
+require 'sidekiq'
+require 'sidekiq/web'
+require 'redis'
+load './sidekiq_worker/worker.rb'
+
+Sidekiq.configure_client do |config|
+  config.redis = { url: 'redis://redis:6379/0'}
+end
 
 get '/tests' do
   ListCSVData.set_database
 end
 
 post '/import' do
-  SetDatabase.drop_table
-  SetDatabase.create_table
-  DataCSV.insert_data(request.body)
+  MyWorker.perform_async(request.body.read)
+  puts 'Seus dados estão sendo importados'
 end
 
 Rack::Handler::Puma.run(
