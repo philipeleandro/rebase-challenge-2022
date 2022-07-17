@@ -8,4 +8,4 @@ docker run \
   -it \
   --network rebase-challenge \
   ruby \
-  bash -c "gem install rack sinatra puma pg rspec && apt update && apt install postgresql-client -y && bash"
+  bash -c "gem install rack sinatra puma pg rspec redis sidekiq && apt update && apt install postgresql-client -y && bash"
