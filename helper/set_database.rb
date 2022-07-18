@@ -1,4 +1,5 @@
 require 'pg'
+require 'csv'
 require_relative './database_connection'
 
 class SetDatabase
