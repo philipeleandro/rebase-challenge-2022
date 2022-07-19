@@ -1,7 +1,15 @@
 #!/bin/bash
 
-docker run \
+# Redis
+docker run --rm --name redis -d --network rebase-challenge redis
+
+# Sidekiq
+docker run --rm -d -w /app -v $(pwd):/app -it --name sidekiq --network rebase-challenge ruby bash -c "gem install rack sinatra puma pg rspec redis sidekiq && apt update && apt install postgresql-client -y && REDIS_URL=redis://redis:6379 sidekiq -r './sidekiq/config.rb' -c 8"
+
+# Aplicação
+ docker run \
   --rm \
+  --name app \
   -w /app \
   -v $(pwd):/app \
   -p 3000:3000 \
