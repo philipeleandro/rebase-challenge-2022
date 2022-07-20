@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'sinatra'
 require 'rack/handler/puma'
 require 'csv'
@@ -13,7 +15,7 @@ require 'redis'
 load './sidekiq_worker/worker.rb'
 
 Sidekiq.configure_client do |config|
-  config.redis = { url: 'redis://redis:6379/0'}
+  config.redis = { url: 'redis://redis:6379/0' }
 end
 
 get '/tests' do
@@ -26,7 +28,7 @@ post '/import' do
 end
 
 get '/tests/:token' do
-  DetailsExams.mix_data(params["token"]).to_json
+  DetailsExams.mix_data(params['token']).to_json
 end
 
 Rack::Handler::Puma.run(

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'pg'
 require_relative '../helper/set_database'
@@ -7,7 +9,7 @@ describe 'Database' do
   it 'select data table' do
     SetDatabase.drop_table
     SetDatabase.create_table
-   
+
     expect(Database.connect.exec_params('select * from patient').count).to eq 0
   end
 

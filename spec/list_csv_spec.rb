@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'pg'
 require_relative '../helper/list_csv_data'
