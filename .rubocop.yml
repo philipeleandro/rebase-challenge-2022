@@ -1,0 +1,14 @@
+Style/Documentation:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 20
+
+Metrics/BlockLength:
+  IgnoredMethods: ['describe', 'context']
+
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+
+Metrics/AbcSize:
+  Max: 25
