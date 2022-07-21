@@ -24,7 +24,7 @@ end
 
 post '/import' do
   MyWorker.perform_async(request.body.read)
-  puts 'Seus dados estão sendo importados'
+  puts 'Data importing from POST'
 end
 
 get '/tests/:token' do
